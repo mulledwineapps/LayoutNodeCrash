@@ -12,10 +12,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,18 +38,13 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier
-    ) {
-        var list by remember { mutableStateOf((1..10).toList()) }
 
-        val deleteItem: (Int) -> Unit = remember {
-            { item -> list = list.filterNot { it == item } }
-        }
+    val list = remember { mutableStateListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) }
 
+    Column(modifier = modifier) {
         list.forEach { item ->
             Card(
-                onClick = { deleteItem(item) },
+                onClick = { list.remove(item) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
